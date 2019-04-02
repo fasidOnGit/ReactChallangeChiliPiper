@@ -18,6 +18,7 @@ class Form extends Component {
         };
 
         this.isFormValid = this.isFormValid.bind(this);
+        this.onChange = this.onChange.bind(this);
 
     }
 
@@ -97,6 +98,12 @@ class Form extends Component {
             this.props.message = 'Form is Incomplete!'
          }
     }
+    onChange(event) {
+        const field = event.target.name;
+        let formObj = Object.assign({}, this.state.formObj);
+        formObj[field] = event.target.value;
+        return this.setState({formObj:formObj});
+    }
     render() {
         return (
             <div className="row">
@@ -104,19 +111,20 @@ class Form extends Component {
             <form>
                 <h3>Name:
                 </h3>
-                <input type="text" value={this.state.formObj.name} name="name"></input>
+                <input type="text" value={this.state.formObj.name} onChange={this.onChange} name="name"></input>
                 <h3>Email:
                 </h3>
-                <input type="text" value={this.state.formObj.email} name="email"></input>
+                <input type="text" value={this.state.formObj.email} onChange={this.onChange} name="email"></input>
                 <h3>Phone:
                 </h3>
-                <input type="text" value={this.state.formObj.phone} name="phone"></input>
+                <input type="text" value={this.state.formObj.phone} onChange={this.onChange} name="phone"></input>
                 <h3>Blog URL:
                 </h3>
-                <input type="text" value={this.state.formObj.url} name="url"></input>
+                <input type="text" value={this.state.formObj.url} onChange={this.onChange} name="url"></input>
                 <div className="small-6 small-centered text-center columns">
                     <a href="#" className="button success expand round text-center" onChange={this.isFormValid}>Verify</a>
                 </div>
+                {this.props.message}
             </form>
         </div>);
     }
